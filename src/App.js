@@ -1,7 +1,6 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import ContactPage from './HandleSubmit';
 import './App.css';
+import { ContactForm } from './ContactForm';
 
 function App() {
   return (
@@ -12,7 +11,7 @@ function App() {
             Contact Form
           </p>
         </header>
-        <ContactPage/>
+        <ContactForm/>
       </div>
     </div>
   );
