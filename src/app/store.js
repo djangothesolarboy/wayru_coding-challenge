@@ -1,8 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { createStore } from 'redux';
+import { combineForms } from 'react-redux-form';
 
-export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
-});
+const initialState = {
+  name: '',
+  email: '',
+  message: ''
+}
+
+export const store = createStore(combineForms({
+  user: initialState
+}));
