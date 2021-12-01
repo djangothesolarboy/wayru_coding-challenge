@@ -1,33 +1,29 @@
 import React from 'react';
 import { Control, Form, Errors, actions } from 'react-redux-form';
-
-const postLogin = (values) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (values.name === '') {
-                reject({
-                    '': 'Submit failed.',
-                    name: 'Name field is required.',
-                });
-            } else if (!values.email.includes('@')) {
-                reject({
-                    '': 'Submit failed.',
-                    email: 'Email field is required.',
-                });
-            } else {
-                resolve(true);
-                alert('Submit successful.');
-                console.log(values);
-            }
-        })
-    })
-}
+import axios from 'axios';
 
 export class ContactForm extends React.Component {
     handleSubmit(values) {
-        // <input type="hidden" name="_to" value={{`${values.email}`}} />
+        // email form submitter
+        axios.defaults.headers.post['Content-Type'] = 'application/json';
+        axios.post(`https://formsubmit.co/ajax/${values.email}`, {
+            name: values.name,
+            email: values.email,
+            message: values.message
+        })
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
+        // emails me
+        axios.defaults.headers.post['Content-Type'] = 'application/json';
+        axios.post(`https://formsubmit.co/ajax/damienjdarko@gmail.com`, {
+            name: values.name,
+            email: values.email,
+            message: values.message
+        })
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
+        alert('Submit successful.');
         console.log(values);
-        // this.props.dispatch(actions.submit('user', postLogin(values)));
     }
     render() {
         const isEmail = (email) => email.includes('@');
